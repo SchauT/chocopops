@@ -52,7 +52,6 @@ function Ground(color, size_x, size_y, nb_tile)
 
             color = colors[Math.floor(Math.random()*colors.length)];
 
-            console.log(color);
             if (y === 0 && x === 0)
                 color = 0xF0F0F0;
 
@@ -67,16 +66,9 @@ function Ground(color, size_x, size_y, nb_tile)
             }
             else {
                 // noGround.push([x, y]);
-                if (noGround[x, y] === undefined)
-                    console.log("x: " + x + " y: " + y + " undefined");
-                else {
-                    console.log("x: " + x + " y: " + y + " DEFINED " + noGround[x, y]);
-                }
             }
         }
     }
-
-    console.log(noGround);
 }
 
 function Light(name, color, position)
