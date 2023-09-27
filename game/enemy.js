@@ -46,15 +46,10 @@ Enemy.prototype.displayInfo = function () {
   jQuery('#'+this.name+' >.life').text(this.life);
 }
 
-Enemy.prototype.turnRight = function (angle) {
-  this.direction -= angle;
-  this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), -angle);
-};
-
-Enemy.prototype.turnLeft = function (angle) {
-  this.direction += angle;
-  this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), angle);
-};
+Enemy.prototype.turn = function () {
+  this.direction += Math.PI;
+  this.graphic.rotateOnAxis(new THREE.Vector3(0,0,1), Math.PI);
+}
 
 Enemy.prototype.move = function () {
   var moveTo = new THREE.Vector3(

@@ -84,6 +84,14 @@ function player_collision()
         player1.graphic.position.y -= y - HEIGHT;
     if ( x < 0 )
         player1.graphic.position.x -= x;
+
+    // collision between enemy and walls
+    var x = player2.graphic.position.x + WIDTH / 2;
+    var y = player2.graphic.position.y + HEIGHT / 2;
+    if ( x > WIDTH )
+        player2.turn();
+    if ( x < 0 )
+        player2.turn();
 }
 
 function player_falling()
