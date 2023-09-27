@@ -65,10 +65,7 @@ function bullet_collision()
             y < player2.graphic.position.y + 10)
         {
             scene.remove(player1.bullets[i]);
-            i--;
-            player2.life--;
-            if (player2.life <= 0)
-                player2.dead();
+            player2.dead();
         }
     }
 }
