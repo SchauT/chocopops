@@ -2,7 +2,7 @@ var bulletTime1 = 0;
 
 var bullet_player1_material = new THREE.MeshLambertMaterial(
 {
-    color: 0x00ff00, 
+    color: 0x00ff00,
     transparent: false
 });
 
@@ -19,7 +19,7 @@ function shoot()
         bullet.angle = player1.direction;
         player1.bullets.push(bullet);
         bulletTime1 = clock.getElapsedTime();
-    } 
+    }
 
     // move bullets
     var moveDistance = 5;
@@ -53,6 +53,24 @@ function bullet_collision()
         }
     }
 
+    //collision between bullet and player
+    for (var i = 0; i < player1.bullets.length; i++)
+    {
+        var x = player1.bullets[i].position.x;
+        var y = player1.bullets[i].position.y;
+
+        if (x > player2.graphic.position.x - 10 &&
+            x < player2.graphic.position.x + 10 &&
+            y > player2.graphic.position.y - 10 &&
+            y < player2.graphic.position.y + 10)
+        {
+            scene.remove(player1.bullets[i]);
+            i--;
+            player2.life--;
+            if (player2.life <= 0)
+                player2.dead();
+        }
+    }
 }
 
 function player_collision()
@@ -67,7 +85,8 @@ function player_collision()
         player1.graphic.position.y -= y;
     if ( y > HEIGHT )
         player1.graphic.position.y -= y - HEIGHT;
-
+    if ( x < 0 )
+        player1.graphic.position.x -= x;
 }
 
 function player_falling()
@@ -83,6 +102,11 @@ function player_falling()
     for (var i = 0; i < length; i++) {
         element = noGround[i];
 
+        if (element == null) {
+            player1.dead();
+            return;
+        }
+
         var tileX = (element[0]) | 0;
         var tileY = (element[1]) | 0;
         var mtileX = (element[0] + sizeOfTileX) | 0;
@@ -90,10 +114,12 @@ function player_falling()
 
         if ((x > tileX)
             && (x < mtileX)
-            && (y > tileY) 
+            && (y > tileY)
             && (y < mtileY))
         {
-           player1.dead();
+            if (player1.life > 0)
+                player1.life--;
+            else player1.dead();
         }
     }
 
